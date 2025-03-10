@@ -1,18 +1,13 @@
-FROM ruby:3.4.2
+FROM ruby:3.1.2
 
-RUN apt-get update -qq && apt-get install -y \
-    build-essential \
-    libpq-dev \
-    libmysqlclient-dev \
-    vim \
-    && rm -rf /var/lib/apt/lists/*
+RUN apt-get update -qq && apt-get install -y vim
 
 WORKDIR /traderush
 
-COPY Gemfile Gemfile.lock /TradeRush/
+COPY Gemfile /TradeRush/Gemfile
+COPY Gemfile.lock  /TradeRush/Gemfile.lock
 
 RUN gem update --system && bundle install
-
 COPY . /traderush
 
 COPY entrypoint.sh /usr/bin/
