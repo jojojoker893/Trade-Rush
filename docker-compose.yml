@@ -13,10 +13,10 @@ services:
 
   rails:
     build: 
-      context: ./rails
+      context: ./backend
     command: bash -c "bundle exec rails s -b '0.0.0.0'"
     volumes: 
-      - ./rails:/traderush
+      - ./backend:/traderush
     ports:
       - "3000:3000"
     depends_on:
