@@ -7,7 +7,10 @@ WORKDIR /traderush
 COPY Gemfile /TradeRush/Gemfile
 COPY Gemfile.lock  /TradeRush/Gemfile.lock
 
-RUN gem update --system && bundle install
+RUN gem update --system
+RUN bundle update --bundler
+
+RUN bundle install
 COPY . /traderush
 
 COPY entrypoint.sh /usr/bin/
