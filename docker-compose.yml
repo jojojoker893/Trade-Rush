@@ -10,12 +10,12 @@ services:
       - "3306:3306"
     volumes:
       - mysql_data:/var/lib/mysql
-  rails:
+  backend:
     build:
       context: ./backend
     command: bash -c "bundle exec rails s -b '0.0.0.0'"
     volumes:
-      - ./backend:/traderush
+      - ./backend:/backend
     ports:
       - 3000:3000
     depends_on:
