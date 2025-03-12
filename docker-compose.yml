@@ -3,14 +3,14 @@ services:
     image: mysql:8.0.32
     environment:
       MYSQL_ROOT_PASSWORD: password
-      MYSQL_DATABASE: mysql_database
-      MYSQL_USER: mysql_user
+      MYSQL_DATABASE: traderush_development
+      MYSQL_USER: user
       MYSQL_PASSWORD: password
     ports:
       - "3306:3306"
     volumes:
       - mysql_data:/var/lib/mysql
-  backend:
+  rails:
     build:
       context: ./backend
     command: bash -c "bundle exec rails s -b '0.0.0.0'"
@@ -22,5 +22,6 @@ services:
       - db
     tty: true
     stdin_open: true
+
 volumes:
   mysql_data:
