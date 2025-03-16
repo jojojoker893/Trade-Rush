@@ -1,0 +1,8 @@
+source "https://rubygems.org"
+git_source(:github) { |repo| "https://github.com/#{repo}.git" }
+
+ruby "3.4.2"
+
+# 安定版のバージョン(stable version)が8.0.2なので、最新のものを使用する
+# ref: https://github.com/rails/rails/blob/741e09930d86d81d76931ca62e8a913e4f8ee417/actionview/CHANGELOG.md
+gem "rails", "8.0.2"
