@@ -1,4 +1,4 @@
-**Trade Rush** 
+**Trade Rush**
 
 **TradeRush (トレードラッシュ)**<br>
 トレードの興奮とスピード感を体験！
@@ -42,3 +42,11 @@
 - MySQL<br>
 - API GMOコイン<br>
 https://api.coin.z.com/fxdocs/#ticker
+
+## 環境構築
+```bash
+$ docker-compose build
+$ docker-compose run backend rails db:create
+$ docker-compose run backend rails db:create RAILS_ENV=test
+$ docker-compose up -d
+```
