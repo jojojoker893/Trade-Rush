@@ -1,13 +1,15 @@
 services:
   frontend:
+    container_name: trade-rush-frontend
     build:
+      context: .
       dockerfile:  ./frontend/Dockerfile
     tty: true
     stdin_open: true
     volumes:
       - ./frontend:/app
     ports:
-      - "3001:3001"
+      - 3001:3001
   backend:
     container_name: trade-rush-backend
     build:
