@@ -10,6 +10,7 @@ services:
       - ./frontend:/app
     ports:
       - 3001:3001
+    command: npm run dev
   backend:
     container_name: trade-rush-backend
     build:
