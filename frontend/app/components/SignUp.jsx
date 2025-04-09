@@ -12,10 +12,11 @@ const SignUp = ({ onBack }) => {
 
   const handleCreate = () => {
     ApiAction.createUser(signUpUser)
-    .then((response)=> {
-      onBack()
-      setToken(response.data)
-    })
+    .then((token)=> {
+      if (!token) return;
+      setToken(token);
+      onBack();
+    });
   };
 
   return (

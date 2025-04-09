@@ -20,7 +20,7 @@ class ApiAction {
 
   //新規登録
   static createUser(user) {
-    return axios.post('/api/v1/users', { user }, {
+    return axios.post('http://localhost:3000/api/v1/users', { user }, {
     })
     .then((response) => {
       const token = response.data.token;
@@ -29,14 +29,17 @@ class ApiAction {
       return token
     })
     .catch((error) => {
-      alert(error.response.data.errors.join('\n'));
+      const errors = error.response?.data?.errors;
+      const message = Array.isArray(errors)
+        ? errors.join('\n')
+        : error.response?.data?.error || '登録に失敗しました。';
+      alert(message);
     });
   }
 
-  //ログイン
-  static signIn(user) {
+  static sginIn(user) {
     return axios
-    .post('/api/v1/login', user)
+    .post('http://localhost:3000/api/v1/login', user)
     .then((response) => {
       const token = response.data.token;
       localStorage.setItem('token', token)
