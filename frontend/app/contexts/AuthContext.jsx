@@ -1,12 +1,13 @@
+'use client'
+
 import { createContext, useEffect, useState } from "react";
 
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [token, setToken] = useState(() => localStorage.getItem('token'));
-
+  const [token, setToken] = useState(null);
   useEffect(()=> {
-    const storedToken = localStorage.getItem('token')
+    const storedToken = localStorage.getItem('token');
     setToken(storedToken)
   }, [] );
 
@@ -16,6 +17,6 @@ export const AuthProvider = ({ children }) => {
     <AuthContext.Provider value={{token, setToken, isLoggedIn}}>
       { children }
     </AuthContext.Provider>
-  )
-}
+  );
+};
 
