@@ -37,7 +37,8 @@ class ApiAction {
     });
   }
 
-  static sginIn(user) {
+  //ログイン
+  static signIn(user) {
     return axios
     .post('http://localhost:3000/api/v1/login', user)
     .then((response) => {
