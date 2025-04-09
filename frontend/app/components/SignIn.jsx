@@ -10,7 +10,7 @@ const SignIn = ({ onBack }) => {
   });
 
   const handleSignIn = () => {
-    ApiAciton.signSignIn(signInUser)
+    ApiAciton.signIn(signInUser)
       .then((response) => {
         onBack()
         setToken(response.data)
