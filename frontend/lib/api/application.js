@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { headers } from 'next/headers';
 
 class ApiAction {
 
@@ -17,6 +18,25 @@ class ApiAction {
     });
   };
   
+  //取引履歴を保存
+  static tradelog() {
+    const token = localStorage.getItem('token')
+    return axios.post('http://localhost:3000/api/v1/trade_logs', 
+      { profitloss: profitLoss }, 
+      { headers: 
+        {
+          Authorization: token
+        }
+      }
+    )
+      .then((res)=> {
+        return res.data;
+      })
+      .catch((err)=> {
+        alert('取引履歴の保存に失敗しました。');
+        console.error(err);
+      });
+  };
 
 
   // 外部APIを用いて、買値と売値の取得をする。
