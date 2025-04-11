@@ -1,5 +1,6 @@
-import './globals.css'
-import { AuthProvider } from './contexts/AuthContext'
+import './globals.css';
+import { AuthProvider } from './contexts/AuthContext';
+import Header from './components/Header';
 
 export const metadata = {
   title: 'Trade Rush',
@@ -11,9 +12,10 @@ export default function RootLayout({ children }) {
     <html lang="ja">
       <body>
         <AuthProvider>
+          <Header />
           {children}
         </AuthProvider>
       </body>
     </html>
-  )
+  );
 }

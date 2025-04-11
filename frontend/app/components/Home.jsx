@@ -1,6 +1,9 @@
 'use client';
+import { useRouter } from "next/navigation";
 
-const Home = ({ setIsSignUp, setIsSignIn }) => {
+const Home = () => {
+  const router = useRouter();
+
   return (
     <div className='w-screen h-screen relative overflow-hidden'>
       <img src="/home.jpg" alt="Home" className='w-full h-full object-cover absolute top-0 left-0 z-10' />
@@ -10,13 +13,13 @@ const Home = ({ setIsSignUp, setIsSignIn }) => {
           <div>
             <button
               className='bg-white text-black px-6 py-3 mr-4 rounded-lg text-base font-semibold hover:bg-blue-500 hover:text-white transition duration-300'
-              onClick={() => setIsSignUp(true)}
+              onClick={() => router.push('/signup')}
             >
               新規登録
             </button>
             <button
               className='bg-transparent text-white px-6 py-3 border-2 border-white rounded-lg text-base font-semibold hover:bg-blue-500 hover:text-white transition duration-300'
-              onClick={() => setIsSignIn(true)}
+              onClick={() => router.push('/signin')}
             >
               ログイン
             </button>

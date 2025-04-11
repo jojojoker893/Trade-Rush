@@ -1,9 +1,14 @@
-import { useContext, useEffect, useState } from "react";
+'use client';
+
+import { useContext, useState } from "react";
 import ApiAction from '../../lib/api/application';
 import { AuthContext } from '../contexts/AuthContext.jsx';
+import { useRouter } from "next/navigation";
 
-const SignIn = ({ onBack }) => {
+const SignIn = () => {
   const { setToken } = useContext(AuthContext);
+  const router = useRouter();
+
   const [signInUser, setSignInUser] = useState({
     name: "",
     password: "",
@@ -12,10 +17,14 @@ const SignIn = ({ onBack }) => {
   const handleSignIn = () => {
     ApiAction.signIn(signInUser)
       .then((response) => {
-        onBack()
-        setToken(response.data)
-      })
+        setToken(response);
+        router.push('/trade');
+    });
   };
+
+  const handleBack = () => {
+    router.back();
+  }
 
   return (
     <div className="w-full">
@@ -51,7 +60,7 @@ const SignIn = ({ onBack }) => {
           ログイン
         </button>
         <button
-          onClick={onBack}
+          onClick={handleBack}
           className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4 rounded-md transition duration-200"
         >
           戻る

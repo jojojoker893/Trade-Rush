@@ -1,9 +1,14 @@
-import { useContext, useEffect, useState } from "react";
-import ApiAction from '../../lib/api/application.js';
-import { AuthContext } from '../contexts/AuthContext.jsx';
+'use client'
 
-const SignUp = ({ onBack }) => {
+import { useContext, useState } from "react";
+import ApiAction from '../../lib/api/application';
+import { AuthContext } from '../contexts/AuthContext.jsx';
+import { useRouter } from "next/navigation";
+
+const SignUp = () => {
   const { setToken } = useContext(AuthContext);
+  const router = useRouter();
+
   const [signUpUser, setSignUpUser] = useState({
     name: "",
     password: "",
@@ -15,9 +20,13 @@ const SignUp = ({ onBack }) => {
     .then((token)=> {
       if (!token) return;
       setToken(token);
-      onBack();
+      handleBack();
     });
   };
+
+  const handleBack = () => {
+    router.back();
+  }
 
   return (
     <div className="w-full">
@@ -51,7 +60,7 @@ const SignUp = ({ onBack }) => {
             登録
         </button>
         <button
-          onClick={onBack}
+          onClick={handleBack}
           className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4 rounded-md transition duration-200"
         >
           戻る
