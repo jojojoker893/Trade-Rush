@@ -4,9 +4,10 @@ class ApiAction {
 
   // 外部APIを用いて、買値と売値の取得をする。
   static fetchExchange() {
-    return axios.get('/api/forex/public/v1/ticker')
+    return axios.get('api/forex/public/v1/ticker')
       .then((response) => {
-        const UsdJpy = response.data.data.find(item => item.symbol === 'USE_JPY' )
+        const UsdJpy = response.data.data.find(
+          (item) => item.symbol === 'USD_JPY' );
         return {
           ask: UsdJpy.ask,
           bid: UsdJpy.bid
