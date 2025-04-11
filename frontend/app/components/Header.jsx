@@ -1,5 +1,7 @@
-import { useContext, useEffect } from "react";
-import { AuthContext } from "./contexts/Authcontext.jsx";
+'use client';
+
+import { useContext } from "react";
+import { AuthContext } from "../contexts/AuthContext.jsx";
 
 const Header = () => {
   const { setToken } = useContext(AuthContext);
