@@ -2,6 +2,23 @@ import axios from 'axios';
 
 class ApiAction {
 
+  //ユーザの資産取得
+  static fetchCapital() {
+    const token = localStorage.getItem('token')
+    return axios.get('http://localhost:3000/api/v1/trade',{
+      headers: { Authorization: token }
+    })
+      .then((res) => {
+        return res.data.capital;
+      })
+      .catch((err) => {
+      alert('資産の取得に失敗しました。');
+      console.error(err);
+    });
+  };
+  
+
+
   // 外部APIを用いて、買値と売値の取得をする。
   static fetchExchange() {
     return axios.get('api/forex/public/v1/ticker')

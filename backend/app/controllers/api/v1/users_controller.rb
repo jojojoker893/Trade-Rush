@@ -26,6 +26,11 @@ class Api::V1::UsersController < ApplicationController
     end
   end
 
+  def capital
+    authenticate_user
+    render json: { capital: @current_user.found }
+  end
+
   private
 
   def user_params

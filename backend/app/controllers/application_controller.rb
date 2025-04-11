@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::API
 
-  def authenticate_user(password)
+  def authenticate_user
     authorization_header = request.headers[:Authorization]
     unless authorization_header
       return render_unauthorized("ログインが必要です")
@@ -23,6 +23,10 @@ class ApplicationController < ActionController::API
     payload = { user_id: user_id }
     secret_key = Rails.application.credentials.secret_key_base
     JWT.encode(payload, secret_key)
+  end
+
+  def render_unauthorized(message)
+    render json: { error: message }, status: :unauthorized
   end
 
 end

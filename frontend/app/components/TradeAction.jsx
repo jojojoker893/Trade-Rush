@@ -6,7 +6,7 @@ const TradeAction = () => {
   const [isTrade, setIsTrade] = useState(false);
   const [lot, setLot] = useState(1);
   const [leverage, setLeverage] = useState(1);
-  const [capital, setCapital] = useState(2000000);
+  const [capital, setCapital] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isHelp, setIsHelp] = useState(false);
   const [askPrice, setAskPrice] = useState(0);
@@ -22,12 +22,20 @@ const TradeAction = () => {
       })
     };
 
+    const fetchCapital = () => {
+      ApiAction.fetchCapital()
+      .then((res) => {
+        setCapital(res);
+      });
+    };
+
+    fetchCapital();
+
     fetchExchange();
     const interval = setInterval(fetchExchange, 1000);
     return () => clearInterval(interval);
   }, []);
-
-
+  
 
   return (
     <div className="flex justify-center items-center w-full gap-20">
@@ -66,7 +74,7 @@ const TradeAction = () => {
           <div className="border border-black rounded-2xl py-2 px-10 flex flex-col gap-12 w-full max-w-md shadow-2xl">
             <div className="text-2xl py-2 text-left flex justify-between w-full">
               <span className="min-w-[140px]">保有資産：</span>
-              <span>¥{capital.toLocaleString()}</span>
+              <span>{capital !== null ? `¥${capital.toLocaleString()}` : '資産取得中'}</span>
             </div>
 
             <div className="text-2xl py-3 text-left flex justify-between w-full">
