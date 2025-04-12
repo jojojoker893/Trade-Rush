@@ -6,15 +6,36 @@ const TradeAction = () => {
   const [isTrade, setIsTrade] = useState(false);
   const [lot, setLot] = useState(1);
   const [leverage, setLeverage] = useState(1);
-  const [capital, setCapital] = useState(2000000);
+  const [capital, setCapital] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isHelp, setIsHelp] = useState(false);
-
-  // ダミー表示用
-  const askPrice = 150.00;
-  const bidPrice = 149.90;
-  const displayProfitLoss = 0;
+  const [askPrice, setAskPrice] = useState(0);
+  const [bidPrice, setBidPrice] = useState(0);
   const margin = 0;
+
+  useEffect(() => {
+    const fetchExchange = () => {
+      ApiAction.fetchExchange()
+      .then((res) => {
+        setAskPrice(res.ask);
+        setBidPrice(res.bid);
+      })
+    };
+
+    const fetchCapital = () => {
+      ApiAction.fetchCapital()
+      .then((res) => {
+        setCapital(res);
+      });
+    };
+
+    fetchCapital();
+
+    fetchExchange();
+    const interval = setInterval(fetchExchange, 1000);
+    return () => clearInterval(interval);
+  }, []);
+  
 
   return (
     <div className="flex justify-center items-center w-full gap-20">
@@ -34,7 +55,7 @@ const TradeAction = () => {
             {/* 売値 */}
             <div className="relative w-[240px] h-[240px] rounded-full bg-gradient-to-br from-green-400 to-green-700 p-[3px] shadow-lg">
               <div className="flex flex-col items-center justify-center bg-white rounded-full w-full h-full">
-                <span className="text-3xl">149.</span>
+                <span className="text-3xl">{askPrice}</span>
                 <span className="text-7xl border-b border-black w-[130px] text-center mt-2 pb-2">90</span>
                 <p className="text-green-500 font-semibold text-center mt-4">Bid / 売値</p>
               </div>
@@ -43,7 +64,7 @@ const TradeAction = () => {
             {/* 買値 */}
             <div className="relative w-[240px] h-[240px] rounded-full bg-gradient-to-br from-red-400 to-red-700 p-[3px] shadow-lg">
               <div className="flex flex-col items-center justify-center bg-white rounded-full w-full h-full">
-                <span className="text-3xl">150.</span>
+                <span className="text-3xl">{bidPrice}</span>
                 <span className="text-7xl border-b border-black w-[130px] text-center mt-2 pb-2">00</span>
                 <p className="text-red-500 font-semibold text-center mt-4">Ask / 買値</p>
               </div>
@@ -53,7 +74,7 @@ const TradeAction = () => {
           <div className="border border-black rounded-2xl py-2 px-10 flex flex-col gap-12 w-full max-w-md shadow-2xl">
             <div className="text-2xl py-2 text-left flex justify-between w-full">
               <span className="min-w-[140px]">保有資産：</span>
-              <span>¥{capital.toLocaleString()}</span>
+              <span>{capital !== null ? `¥${capital.toLocaleString()}` : '資産取得中'}</span>
             </div>
 
             <div className="text-2xl py-3 text-left flex justify-between w-full">
