@@ -1,9 +1,14 @@
 class Api::V1::TradeLogsController < ApplicationController
+  before_action :authenticate_user
 
   def create
-    trade_log = authenticate_user.trade_logs.new(trade_params)
+    trade_log = current_user.trade_logs.new(trade_params)
+
     if trade_log.save
-      render json: { message: "Log created"}, status: :ok
+      current_user.found += trade_log.profitloss
+      current_user.save
+
+      render json: { capital: current_user.found}, status: :ok
     else
       render json: { errors: trade_log.errors.full_messages }, status: :unprocessable_entity
     end
