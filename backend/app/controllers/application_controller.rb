@@ -1,5 +1,9 @@
 class ApplicationController < ActionController::API
 
+  def current_user
+    @current_user
+  end
+
   def authenticate_user
     authorization_header = request.headers[:Authorization]
     unless authorization_header
